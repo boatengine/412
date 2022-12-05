@@ -5,15 +5,18 @@
     if(!isset($_SESSION['em_id'])){
         header("location: index.php");
     }
+    $em_id = $_SESSION['em_id'];
     if(isset($_POST['edit_express'])){
         $ex_id_up = $_POST['ex_id_up'];
         $ex_name = $_POST['ex_name'];
         $ex_date_to = $_POST['ex_date_to'];
+        $em_id_up = $_POST['em_id'];
         $status = $_POST['status'];
 
         $insert = mysqli_query($conn, "UPDATE express SET 
                         ex_name = '$ex_name',
                         ex_date_to = '$ex_date_to',
+                        em_id = '$em_id',
                         status = '$status' WHERE ex_id = '$ex_id_up'");
         if($insert) {
             $_SESSION['success'] = 'สำเร็จ';
@@ -58,7 +61,11 @@
                 <input type="text" name="ex_name" required class="form-control" value="<?= $fetch['ex_name'];?>">
             </div>
             <div class="form-group">
-                <label for="">เลขค้นหาพัสดุ</label>
+                <label for="">รหัสพนักงาน</label>
+                <input type="text" name="em_id" required class="form-control" value="<?= $em_id?>" disabled>
+            </div>
+            <div class="form-group">
+                <label for="">วันที่ถึง</label>
                 <input type="date" name="ex_date_to" required class="form-control" value="<?= $fetch['ex_date_to'];?>">
             </div>
             <div class="form-group">
